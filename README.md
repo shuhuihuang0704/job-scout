@@ -1,5 +1,7 @@
 # Job Scout · 公开岗位雷达
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > 一个面向 AI 助手的 Codex skill：搜索公开招聘信息，核验原帖，提炼岗位要求，并按你的条件比较机会。
 
 Job Scout 适合寻找全职、实习、合同等公开岗位。它会尽量保留原始招聘链接和可核验的证据，帮助你快速判断哪些机会值得进一步了解。
@@ -18,39 +20,64 @@ Job Scout 适合寻找全职、实习、合同等公开岗位。它会尽量保�
 
 ### Codex
 
-将完整的 job-scout 文件夹复制到：
+将完整的 `job-scout` 文件夹安装到：
 
-~~~text
+```text
 $CODEX_HOME/skills/job-scout
-~~~
+```
 
-如果没有设置 CODEX_HOME，使用：
+如果没有设置 `CODEX_HOME`，使用：
 
-~~~text
+```text
 ~/.codex/skills/job-scout
-~~~
+```
 
-然后重新加载 skill 列表，或重启 Codex。
+安装后重新加载 skill 列表，或重启 Codex。
 
 ### 从 GitHub 获取
 
-~~~bash
-git clone https://github.com/shuhuihuang0704/job-scout.git
-~~~
+如果已经设置 `CODEX_HOME`：
 
-复制完成后，确认目录中存在 SKILL.md、agents/ 和 references/。
+```bash
+git clone https://github.com/shuhuihuang0704/job-scout.git "$CODEX_HOME/skills/job-scout"
+```
+
+如果没有设置 `CODEX_HOME`：
+
+```bash
+git clone https://github.com/shuhuihuang0704/job-scout.git "$HOME/.codex/skills/job-scout"
+```
+
+如果目标目录已经存在，可以更新到最新版本：
+
+```bash
+git -C "$CODEX_HOME/skills/job-scout" pull --ff-only
+```
+
+没有设置 `CODEX_HOME` 时，将路径替换为 `"$HOME/.codex/skills/job-scout"`。
+
+安装完成后，确认目录中存在 `SKILL.md`、`agents/` 和 `references/`。
+
+## 🧭 工作方式
+
+1. 先提取岗位、城市、工作类型、经验、諆办公方式和预算等条件。
+2. 使用少量接近原��的关键词变体搜索公开来源，不悄悄放宽硬性条件。
+3. 回到雇主页面或明确的招聘原帖核验岗位状态、要求和日期。
+4. 去重后按硬性条件、来源可靠性、新鲜度和用户偏好整理短名单。
+
+如果你只提供招聘链接，Job Scout 也可以直接分析链接；没有搜索或浏览能力时，它不会假装自己找到了新的岗位。
 
 ## 💬 使用示例
 
-~~~text
+```text
 使用 $job-scout 找宁波的 AI 产品岗位，实习也可以。最多花 5 积分，给我招聘原帖和岗位要求，我先挑几家。
-~~~
+```
 
 也可以指定更多条件：
 
-~~~text
+```text
 使用 $job-scout 找杭州的 AI 产品实习，优先互联网公司，接受远程，按原帖是否仍在招聘排序。
-~~~
+```
 
 ## 📋 输出内容
 
@@ -66,15 +93,6 @@ git clone https://github.com/shuhuihuang0704/job-scout.git
 | 原始链接 | 可直接打开的招聘原帖或雇主页面 |
 | 匹配说明 | 与你给出的条件的匹配点、缺口和未知信息 |
 
-如果用户设置了积分上限，还会显示预算账本：
-
-~~~text
-预算：5 积分
-已使用：2 积分（或：成本未知）
-剩余：3 积分（或：无法计算）
-搜索动作：公开网页检索、原帖核验
-~~~
-
 ## 🔎 搜索与核验流程
 
 1. 提取你的岗位、城市、工作类型和明确限制。
@@ -83,7 +101,7 @@ git clone https://github.com/shuhuihuang0704/job-scout.git
 4. 按你的硬性条件和偏好整理短名单。
 5. 输出预算账本、链接、要求、证据和无法确认的部分。
 
-详细的关键词扩展、来源顺序和新鲜度规则见 references/search-strategy.md。
+详细的关键词扩展、来源顺序和新鲜度规则见 [`references/search-strategy.md`](references/search-strategy.md)。
 
 ## 🛡️ 边界与隐私
 
@@ -95,27 +113,34 @@ git clone https://github.com/shuhuihuang0704/job-scout.git
 
 ## 📁 项目结构
 
-~~~text
+```text
 job-scout/
 ├── SKILL.md                         # 核心 skill 指令
-├── CONTRIBUTING.md                  # 修改和贡献说明
+├── CONTRIBUTING.md                        # 修改和贡献说明
+├── LICENSE                          # MIT 许可证
 ├── agents/openai.yaml               # Codex 展示信息与默认提示词
 └── references/
-    ├── matching-rubric.md           # 岗位匹配规则
-    ├── search-strategy.md           # 搜索关键词、来源和新鲜度策略
-    └── sources-and-evidence.md      # 来源与证据规则
-~~~
+    ├── matching-rubric.md            # 岗位匹配规则
+    ├── search-strategy.md             # 搜索关键词、来源和新鲜度策略
+    └── sources-and-evidence.md       # 来源与证据规则
+```
 
 ## ⚙️ 使用要求
 
-- 支持 SKILL.md 的 AI 助手。
+- 支持 `SKILL.md` 的 AI 助手。
 - 可访问公开网页的搜索或浏览工具。
 
 没有搜索或浏览能力时，仍可以让 Job Scout 分析你提供的招聘链接，但它无法自行发现新岗位。
 
-## 🌱 发布前检查
+## 🤝 维护与贡献
 
-如果要让其他人直接安装，请先将仓库设为公开，并选择合适的开源许可证。发布前还应确认安装路径、目标 AI 助手版本和公开网页访问能力与使用环境一致。
+仓库目前是公开的，采用 [MIT License](LICENSE)。提交修改前，请阅读 [`CONTRIBUTING.md`](CONTRIBTING.md){yid，并至少检查：
+
+```bash
+git diff --check
+```
+
+还应确认安装路径、目标 AI 助手版本和公开网页访问能力与使用环境一致。
 
 ## English summary
 
