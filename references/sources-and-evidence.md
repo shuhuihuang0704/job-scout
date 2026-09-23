@@ -28,6 +28,18 @@ For each shortlisted listing:
 - Preserve the original URL and distinguish it from a secondary summary or aggregator copy.
 - Extract only details the page states. Separate explicit requirements from likely preferences or your own inference.
 
+Use these status rules consistently:
+
+| Status | Minimum visible evidence |
+| --- | --- |
+| `招聘中` | The original source presents the role as open, accepts applications, or provides a current application action. |
+| `已关闭` | The original source explicitly says the role is closed, filled, expired, or no longer accepts applications. |
+| `状态未知` | The page is accessible but does not establish whether applications are still open, or the strongest source is blocked or contradictory. |
+
+Do not upgrade `状态未知` to `招聘中` because a copied listing still appears in search results. If a page only says “posted recently” without an application signal, keep status unknown and use the date only for freshness ranking.
+
+When a date is relative, preserve the displayed wording and record the verification date. Do not convert a relative date into an exact date unless the source provides enough information to do so reliably.
+
 ## Evidence in the answer
 
 Provide one direct source link per opportunity. Include the source type, visible date, status, and verification date when useful. Summarize duties and qualifications without reproducing the full posting. If a source is blocked, stale, or incomplete, label that limitation next to the listing.
